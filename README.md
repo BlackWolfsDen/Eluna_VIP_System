@@ -5,8 +5,8 @@ so you have to modify your website to also add a value to this column when a pla
 
 you MUST add all 3 columns to your auth.account table.
 
-USE `auth`;
-ALTER TABLE `account` 
+USE `auth`;\n
+ALTER TABLE `account` \n
 	ADD COLUMN `vip` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1' AFTER `activation`, 
 	ADD COLUMN `mg` MEDIUMINT(20) UNSIGNED NOT NULL DEFAULT '0' AFTER `vip`, 
 	ADD COLUMN `votes` MEDIUMINT(20) UNSIGNED NOT NULL DEFAULT '0' AFTER `mg`; 
