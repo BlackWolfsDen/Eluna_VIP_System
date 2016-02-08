@@ -13,7 +13,6 @@ you MUST add all 3 columns to your auth.account table.
 	
 	USE `world`;
 	ALTER TABLE `item_template`
-		ADD COLUMN `vip` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1' AFTER `VerifiedBuild`,
 		ADD COLUMN `mg` MEDIUMINT(20) UNSIGNED NOT NULL DEFAULT '0' AFTER `vip`;
 
 VIP System.
