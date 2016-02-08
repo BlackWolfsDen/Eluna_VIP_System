@@ -19,19 +19,31 @@ VIP System.
 
 	allows for up to VIP XX. currently set to 10
 	you can set max VIP in the core(VIPMAX).
+	
 	VOTECOUNT is for the votes part (how many Votes it takes to gain +1 VIP level. currently set to 125.
+
 	A VIP Coin that will Display your VIP stats.
+
 	a #buff command that will filter for vip level 1-10/11-20, if player has VIP Coin,  and if in a guild
+
 	a VIP Stone to increase a players vip level.
+
 	a banker so players can deposit and withdraw MG from there acct's bank.
 		MG is accessable by ALL toons on specific account.
+
 	a hyper-dynamic drop table to apply MG to drop from creatures.
+
 	a MG rewarder system that rewards players MG who are in a guild every half hour they are logged on.
+
 	a PvP reward system that rewards or deducts MG from a winner/loser.
+
 	a command to reset player talents plus give extra talent points based on vip level.
 	a command players can use outside of bg's to revive them selves when they have a VIP Coin in there inventory.
+
 	a hyper-dynamic custom item VIP Super-Vendor.
+
 	A kewl world chat script that displays the players VIP level and security level plus with icons and the 
+
 	"#chat" requirement removed.
 		Icons tell the players team and class and GM tag for gm's.
 		Player names are interact-able.
