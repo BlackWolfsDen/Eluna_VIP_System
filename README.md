@@ -20,7 +20,7 @@ you MUST add all 3 columns to your auth.account table.
 
 VIP System.
 
-	allows for up to VIP XX. currently set to 10
+	allows for up to VIP XX. currently set to 6
 	you can set max VIP in the core(VIPMAX).
 	
 	VOTECOUNT is for the votes part (how many Votes it takes to gain +1 VIP level. currently set to 125.
