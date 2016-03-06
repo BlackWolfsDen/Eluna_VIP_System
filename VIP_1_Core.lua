@@ -14,7 +14,7 @@ else
 	print("Approved: "..GetLuaEngine().." Detected.\n")
 end
 
-local VIPMAX = 20; -- you can set it to what ever your little heart desires.
+local VIPMAX = 6; -- you can set it to what ever your little heart desires.
 local VOTECOUNT = 125; -- how many votes required to level-up
 local VIPCOIN = 63020;
 local VIPSTONE = 63021;
