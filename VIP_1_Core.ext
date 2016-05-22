@@ -52,12 +52,12 @@ local Paccid = player:GetAccountId()
 			SetVip(player,1)
 			player:SendBroadcastMessage("/say "..ACCT["SERVER"].Commands.."|cff00cc00 for a list of VIP commands.|r")
 			return false;
-			end
+		end
 		if(ACCT[Paccid].Votes > (ACCT["SERVER"].Vote_count*ACCT["SERVER"].Vip_max))then
 			SetVip(player,ACCT["SERVER"].Vip_max)
 			player:SendBroadcastMessage("/say "..ACCT["SERVER"].Commands.."|cff00cc00 for a list of VIP commands.|r")
 			return false;
-			end
+		end
 	SetVip(player,(math.ceil(ACCT[Paccid].Votes / ACCT["SERVER"].Vote_count)))
 	player:SendBroadcastMessage("/say "..ACCT["SERVER"].Commands.."|cff00cc00 for a list of VIP commands.|r")
 end
@@ -66,66 +66,77 @@ RegisterPlayerEvent(3, Player_Vip_Table)
 print("Player VIP Table prepared.")
 
 function AddMG(player, change)
-	if((change or 0)==0)then
-	return
+
+	if((change or 0) == 0)then
+		return
 	end
 
-	local Paccid = player:GetAccountId()
-	local Paccnm = player:GetAccountName()
-	local newmg = ACCT[Paccid].Mg+change
-	ACCT[Paccid].Mg = newmg
+	local Paccid = player:GetAccountId();
+	local Paccnm = player:GetAccountName();
+	local newmg = ACCT[Paccid].Mg+change;
+	ACCT[Paccid].Mg = newmg;
+	
 	WorldDBQuery("UPDATE auth.account SET `mg`='"..newmg.."' WHERE `username`='"..Paccnm.."';");
-	player:SendBroadcastMessage("Banker|cff00cc00:+"..change.."MG's added.|r")
-	end
+	
+	player:SendBroadcastMessage("Banker|cff00cc00:+"..change.."MG's added.|r");
+end
 
 function DeleteMG(player, change)
 	if((change or 0)==0)then
-	return
+		return
 	end
 	
-	local Paccid = player:GetAccountId()
-	local Paccnm = player:GetAccountName()
-	local newmg = ACCT[Paccid].Mg-change
-	ACCT[Paccid].Mg = newmg
+	local Paccid = player:GetAccountId();
+	local Paccnm = player:GetAccountName();
+	local newmg = ACCT[Paccid].Mg-change;
+	ACCT[Paccid].Mg = newmg;
+	
 	WorldDBQuery("UPDATE auth.account SET `mg`='"..newmg.."' WHERE `username`='"..Paccnm.."';");
+	
 	player:SendBroadcastMessage("Banker|cff00cc00:-"..change.."MG's removed.|r")
-	end
+end
 	
 
 function SetVip(player, vip)
+
 	if((vip or 0)==0)then
-	return
+		return
 	end
 
-	local Paccid = player:GetAccountId()
-	local Paccnm = player:GetAccountName()
-	ACCT[Paccid].Vip = vip
+	local Paccid = player:GetAccountId();
+	local Paccnm = player:GetAccountName();
+	ACCT[Paccid].Vip = vip;
+	
 	WorldDBQuery("UPDATE auth.account SET `vip`='"..vip.."' WHERE `username`='"..Paccnm.."';");
+	
 	player:SendBroadcastMessage("|cff00cc00You\'re VIP is set to "..ACCT[Paccid].Vip..".|r")
-
 end
 
 function UpdateVotes(player, change)
 	if((change or 0)==0)then
-	return
+		return;
 	end
 	
-	local Paccid = player:GetAccountId()
-	local Paccnm = player:GetAccountName()
-	ACCT[Paccid].Votes = (ACCT[Paccid].Votes+change)
+	local Paccid = player:GetAccountId();
+	local Paccnm = player:GetAccountName();
+	ACCT[Paccid].Votes = (ACCT[Paccid].Votes+change);
+	
 	WorldDBQuery("UPDATE auth.account SET `votes`=`votes`+'"..change.."' WHERE `username`='"..Paccnm.."';");
-	return
+	
+	return;
 end
 
 function UpdatePvpReward(killer, victim)
-local Kaccid = killer:GetAccountId()
-local Vaccid = victim:GetAccountId()
-	AddMG(killer, ACCT[Kaccid].Vip+ACCT[Vaccid].Vip)
-	killer:SendBroadcastMessage("|cff00cc00PvP Winner. "..ACCT[Kaccid].Vip.."+"..ACCT[Vaccid].Vip.." MG's transfered.|r")
-	ACCT[Vaccid].Mg = ACCT[Vaccid].Mg-ACCT[Vaccid].Vip
-	DeleteMG(victim, ACCT[Vaccid].Vip)
-	victim:SendBroadcastMessage("|cffcc0000PvP Loser. -"..ACCT[Vaccid].Vip.." MG's lost.|r")
-	end
+	local Kaccid = killer:GetAccountId();
+	local Vaccid = victim:GetAccountId();
+	
+	AddMG(killer, ACCT[Kaccid].Vip+ACCT[Vaccid].Vip);
+	killer:SendBroadcastMessage("|cff00cc00PvP Winner. "..ACCT[Kaccid].Vip.."+"..ACCT[Vaccid].Vip.." MG's transfered.|r");
+
+	ACCT[Vaccid].Mg = ACCT[Vaccid].Mg-ACCT[Vaccid].Vip;
+	DeleteMG(victim, ACCT[Vaccid].Vip);
+	victim:SendBroadcastMessage("|cffcc0000PvP Loser. -"..ACCT[Vaccid].Vip.." MG's lost.|r");
+end
 	
 function LoadVipTable(event, player, msg)
 
@@ -141,23 +152,27 @@ local message = "Load Vip Table"
 			Mg = MAGICGOLD,
 			Tp_mod = VIPTPBONUS,
 			Commands = COMMANDS
-				};
+		};
+		
 		for _,v in ipairs(GetPlayersInWorld()) do
 	
 	 		if(v and v:IsInWorld()) then
 				local Q = WorldDBQuery("SELECT id, username, vip, votes, mg FROM auth.account WHERE `id` = '"..v:GetAccountId().."';");
+	
 				ACCT[Q:GetUInt32(0)] = {
 					Name = Q:GetString(1),
 					Vip = Q:GetUInt32(2),
 					Votes = Q:GetUInt32(3),
 					Mg = Q:GetUInt32(4)
-							};
-				print(ACCT[v:GetAccountId()].Name.." : VIP Table re-Loaded.")
-				player:SendBroadcastMessage("/say "..ACCT["SERVER"].Commands.."|cff00cc00 for a list of VIP commands.|r")
+				};
+			
+				print(ACCT[v:GetAccountId()].Name.." : VIP Table re-Loaded.");
+				player:SendBroadcastMessage("/say "..ACCT["SERVER"].Commands.."|cff00cc00 for a list of VIP commands.|r");
 			end
 		end
-	player:SendBroadcastMessage("Grumbo'z VIP Table Re-loaded.")
-	print("VIP Table re-loaded")
+		
+		player:SendBroadcastMessage("Grumbo'z VIP Table Re-loaded.");
+		print("VIP Table re-loaded");
 	end
 end
 
